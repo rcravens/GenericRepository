@@ -1,0 +1,20 @@
+A utility for pre-generating lazy-loading proxies for NHibernate. Documentation and examples are available at NHForge.org 
+Any feedback or issue can be sent to NHibernate user group (http://groups.google.com/group/nhusers) and will be greatly anticipated. 
+
+Build 1.0.0.Beta 622
+========================
+** Bug Fix
+	* Proxies for mapped classes with base class from another assembly would fail during compilation
+	
+** Improvement
+	* NHPG-1	Added the ability to specify the dialect to use during generation (Jaroslav Martásek)
+	* Added ActiveRecord example
+	* Upgraded to NH 2.0.1 GA
+	
+Build 1.0.0.Alpha 564
+========================
+** Bug Fix
+	* Initial Release
+	
+** Improvement
+	* Initial Release

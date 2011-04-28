@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{5B1E4A8A-F759-42D9-8EBE-B06FD26CE3CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernateImpl", "NHibernateImpl\NHibernateImpl.csproj", "{CC1A6ECE-5350-40D2-BAA7-82046DDE323B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeImpl", "FakeImpl\FakeImpl.csproj", "{C6CAD8D2-2BF5-46C2-AED4-B38727F7C51B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeImplTests", "FakeImplTests\FakeImplTests.csproj", "{30D7F005-4B4F-4825-80E8-98AFB9484753}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01546B90-29E8-4E2B-B267-E516E9570EDB}"
+	ProjectSection(SolutionItems) = preProject
+		GenericRepository.vsmdi = GenericRepository.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = GenericRepository.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B1E4A8A-F759-42D9-8EBE-B06FD26CE3CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1E4A8A-F759-42D9-8EBE-B06FD26CE3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1E4A8A-F759-42D9-8EBE-B06FD26CE3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1E4A8A-F759-42D9-8EBE-B06FD26CE3CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC1A6ECE-5350-40D2-BAA7-82046DDE323B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC1A6ECE-5350-40D2-BAA7-82046DDE323B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC1A6ECE-5350-40D2-BAA7-82046DDE323B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC1A6ECE-5350-40D2-BAA7-82046DDE323B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6CAD8D2-2BF5-46C2-AED4-B38727F7C51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6CAD8D2-2BF5-46C2-AED4-B38727F7C51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6CAD8D2-2BF5-46C2-AED4-B38727F7C51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6CAD8D2-2BF5-46C2-AED4-B38727F7C51B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D7F005-4B4F-4825-80E8-98AFB9484753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D7F005-4B4F-4825-80E8-98AFB9484753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D7F005-4B4F-4825-80E8-98AFB9484753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D7F005-4B4F-4825-80E8-98AFB9484753}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
