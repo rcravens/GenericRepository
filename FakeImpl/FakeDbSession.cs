@@ -3,7 +3,7 @@ using Repository.Infrastructure;
 
 namespace Repository.FakeImpl
 {
-    public class FakeDbSession<TKey, TEntity> : IDbSession<TKey, TEntity> where TEntity : class, IKeyed<TKey>
+    public class FakeDbSession : IDbSession
     {
         private readonly InMemoryDb _db;
 
@@ -21,24 +21,24 @@ namespace Repository.FakeImpl
             // nothing to do
         }
 
-        public IKeyedRepository<TKey, TEntity> CreateKeyedRepository()
+        public IKeyedRepository<TKey, TEntity> CreateKeyedRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>
         {
             InMemoryDbTable<TKey, TEntity> table = _db.GetTable<TKey, TEntity>();
             return new FakeRepository<TKey, TEntity>(table);
         }
 
-        public IKeyedReadOnlyRepository<TKey, TEntity> CreateKeyedReadOnlyRepository()
+        public IKeyedReadOnlyRepository<TKey, TEntity> CreateKeyedReadOnlyRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>
         {
             InMemoryDbTable<TKey, TEntity> table = _db.GetTable<TKey, TEntity>();
             return new FakeRepository<TKey, TEntity>(table);
         }
 
-        public IReadOnlyRepository<TEntity> CreateReadOnlyRepository()
+        public IReadOnlyRepository<TEntity> CreateReadOnlyRepository<TEntity>() where TEntity : class
         {
             throw new NotImplementedException();
         }
 
-        public IRepository<TEntity> CreateRepository()
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class
         {
             throw new NotImplementedException();
         }

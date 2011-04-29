@@ -1,5 +1,4 @@
 ﻿using System;
-using FakeImplTests.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.FakeImpl;
 using Repository.Infrastructure;
@@ -13,16 +12,16 @@ namespace FakeImplTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_Exception_If_Db_Is_Null()
         {
-            new FakeDbSessionFactory<int>(null);
+            new FakeDbSessionFactory(null);
         }
 
         [TestMethod]
         public void Create_Returns_Db_Session()
         {
             InMemoryDb db = new InMemoryDb();
-            FakeDbSessionFactory<int> dbSessionFactory = new FakeDbSessionFactory<int>(db);
+            FakeDbSessionFactory dbSessionFactory = new FakeDbSessionFactory(db);
 
-            IDbSession<int, Person> dbSession = dbSessionFactory.Create<Person>();
+            IDbSession dbSession = dbSessionFactory.Create();
             Assert.IsNotNull(dbSession);
         }
     }

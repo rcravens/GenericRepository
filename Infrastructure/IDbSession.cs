@@ -2,13 +2,13 @@
 
 namespace Repository.Infrastructure
 {
-    public interface IDbSession<TKey, TEntity> : IDisposable where TEntity : class, IKeyed<TKey>
-   {
-       IKeyedRepository<TKey, TEntity> CreateKeyedRepository();
-       IKeyedReadOnlyRepository<TKey, TEntity> CreateKeyedReadOnlyRepository();
-       IReadOnlyRepository<TEntity> CreateReadOnlyRepository();
-       IRepository<TEntity> CreateRepository();
-       void Commit();
-       void Rollback();
-   }
+    public interface IDbSession : IDisposable
+    {
+        IKeyedRepository<TKey, TEntity> CreateKeyedRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>;
+        IKeyedReadOnlyRepository<TKey, TEntity> CreateKeyedReadOnlyRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>;
+        IReadOnlyRepository<TEntity> CreateReadOnlyRepository<TEntity>() where TEntity : class;
+        IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class;
+        void Commit();
+        void Rollback();
+    }
 }

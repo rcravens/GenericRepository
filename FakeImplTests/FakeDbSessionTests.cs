@@ -13,32 +13,32 @@ namespace FakeImplTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_Excpection_If_Db_Is_Null()
         {
-            new FakeDbSession<int, Person>(null);
+            new FakeDbSession(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
         public void CreateReadOnlyRepository_Throws_Exception()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
 
-            dbSession.CreateReadOnlyRepository();
+            dbSession.CreateReadOnlyRepository<Person>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
         public void CreateRepository_Throws_Exception()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
 
-            dbSession.CreateRepository();
+            dbSession.CreateRepository<Person>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
         public void Rollback_Throws_Exception()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
 
             dbSession.Rollback();
         }
@@ -46,40 +46,40 @@ namespace FakeImplTests
         [TestMethod]
         public void CreateKeyedRepository_Returns_Expected_Type()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
 
-            IKeyedRepository<int, Person> repository = dbSession.CreateKeyedRepository();
+            IKeyedRepository<int, Person> repository = dbSession.CreateKeyedRepository<int, Person>();
             Assert.IsNotNull(repository);
         }
 
         [TestMethod]
         public void CreateKeyedReadOnlyRepository_Returns_Expected_Type()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
 
-            IKeyedReadOnlyRepository<int, Person> repository = dbSession.CreateKeyedReadOnlyRepository();
+            IKeyedReadOnlyRepository<int, Person> repository = dbSession.CreateKeyedReadOnlyRepository<int, Person>();
             Assert.IsNotNull(repository);
         }
 
         [TestMethod]
         public void Dispose_Is_Implemented()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
             dbSession.Dispose();
         }
 
         [TestMethod]
         public void Commit_Is_Implemented()
         {
-            FakeDbSession<int, Person> dbSession = GetSession();
+            FakeDbSession dbSession = GetSession();
             dbSession.Commit();
         }
 
-        private static FakeDbSession<int, Person> GetSession()
+        private static FakeDbSession GetSession()
         {
             InMemoryDb db = new InMemoryDb();
 
-            FakeDbSession<int, Person> dbSession = new FakeDbSession<int, Person>(db);
+            FakeDbSession dbSession = new FakeDbSession(db);
 
             return dbSession;
         }

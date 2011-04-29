@@ -1,7 +1,7 @@
 ﻿namespace Repository.Infrastructure
 {
-    public interface IDbSessionFactory<TKey>
+    public interface IDbSessionFactory
     {
-        IDbSession<TKey, TEntity> Create<TEntity>() where TEntity : class, IKeyed<TKey>;
+        IDbSession Create();
     }
 }

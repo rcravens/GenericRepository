@@ -2,7 +2,7 @@
 
 namespace Repository.NHibernateImpl
 {
-    public class DbSessionFactory : IDbSessionFactory<int>
+    public class DbSessionFactory : IDbSessionFactory
     {
         private readonly NHibernateHelper _nHibernateHelper;
 
@@ -11,9 +11,9 @@ namespace Repository.NHibernateImpl
             _nHibernateHelper = new NHibernateHelper();
         }
 
-        public IDbSession<int, TEntity> Create<TEntity>() where TEntity : class, IKeyed<int>
+        public IDbSession Create()
         {
-            return new DbSession<TEntity>(_nHibernateHelper.SessionFactory);
+            return new DbSession(_nHibernateHelper.SessionFactory);
         }
     }
 }

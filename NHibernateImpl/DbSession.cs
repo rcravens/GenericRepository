@@ -5,7 +5,7 @@ using Repository.Infrastructure;
 
 namespace Repository.NHibernateImpl
 {
-    public class DbSession<TEntity> : IDbSession<int, TEntity> where TEntity : class, IKeyed<int>
+    public class DbSession : IDbSession
     {
         private readonly ISession _session;
         private readonly ITransaction _transaction;
@@ -38,22 +38,22 @@ namespace Repository.NHibernateImpl
             GC.SuppressFinalize(this);
         }
 
-        public IKeyedRepository<int, TEntity> CreateKeyedRepository()
+        public IKeyedRepository<TKey, TEntity> CreateKeyedRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>
         {
-            return new Repository<int, TEntity>(_session);
+            return new Repository<TKey, TEntity>(_session);
         }
 
-        public IKeyedReadOnlyRepository<int, TEntity> CreateKeyedReadOnlyRepository()
+        public IKeyedReadOnlyRepository<TKey, TEntity> CreateKeyedReadOnlyRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>
         {
-            return new Repository<int, TEntity>(_session);
+            return new Repository<TKey, TEntity>(_session);
         }
 
-        public IReadOnlyRepository<TEntity> CreateReadOnlyRepository()
+        public IReadOnlyRepository<TEntity> CreateReadOnlyRepository<TEntity>() where TEntity : class
         {
             throw new NotImplementedException();
         }
 
-        public IRepository<TEntity> CreateRepository()
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class
         {
             throw new NotImplementedException();
         }
