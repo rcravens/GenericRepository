@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="Repository.DataModel" 
+                   namespace="Repository.DataModel.Dtos">
+  <class name="Address">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="Street" />
+    <property name="City" />
+    <property name="State" />
+    <property name="Country" />
+    <property name="Zip" />
+    <property name="PersonId" />
+  </class>
+</hibernate-mapping>

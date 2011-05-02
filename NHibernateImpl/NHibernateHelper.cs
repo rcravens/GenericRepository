@@ -13,9 +13,8 @@ namespace Repository.NHibernateImpl
 
 		private static ISessionFactory CreateSessionFactory()
 		{
-		    return new NHibernate.Cfg.Configuration()
+            return new NHibernate.Cfg.Configuration()
                 .Configure()
-                .AddAssembly(typeof(NHibernateHelper).Assembly)
                 .BuildSessionFactory();
 		}
 	}

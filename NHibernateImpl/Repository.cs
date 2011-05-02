@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 using System.Linq;
 using NHibernate.Linq;
 using Repository.Infrastructure;
@@ -12,6 +13,10 @@ namespace Repository.NHibernateImpl
 
         public Repository(ISession session)
         {
+            if (session == null)
+            {
+                throw new ArgumentNullException("session");
+            }
             _session = session;
         }
 
@@ -32,13 +37,22 @@ namespace Repository.NHibernateImpl
 
         public bool Update(TEntity entity)
         {
+            if (FindBy(entity.Id) == null)
+            {
+                return false;
+            }
             _session.Update(entity);
             return true;
         }
 
         public bool Delete(TEntity entity)
         {
-            _session.Delete(entity);
+            TEntity toDelete = FindBy(entity.Id);
+            if (toDelete == null)
+            {
+                return false;
+            }
+            _session.Delete(toDelete);
             return true;
         }
 

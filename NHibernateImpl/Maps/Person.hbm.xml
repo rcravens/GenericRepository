@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="Repository.DataModel" 
+                   namespace="Repository.DataModel.Dtos">
+  <class name="Person" table="People">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="FirstName" not-null="true" />
+    <property name="LastName" not-null="true" />
+  </class>
+</hibernate-mapping>

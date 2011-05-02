@@ -28,14 +28,17 @@ namespace Repository.NHibernateImpl
 
         public void Dispose()
         {
-            lock (_session)
+            if(_session!=null)
             {
-                if (_session.IsOpen)
+                lock (_session)
                 {
-                    _session.Close();
+                    if (_session.IsOpen)
+                    {
+                        _session.Close();
+                    }
                 }
+                GC.SuppressFinalize(this);
             }
-            GC.SuppressFinalize(this);
         }
 
         public IKeyedRepository<TKey, TEntity> CreateKeyedRepository<TKey, TEntity>() where TEntity : class, IKeyed<TKey>
@@ -60,18 +63,24 @@ namespace Repository.NHibernateImpl
 
         public void Commit()
         {
-            if (!_transaction.IsActive)
+            if (_transaction != null)
             {
-                throw new InvalidOperationException("No active transation");
+                if (!_transaction.IsActive)
+                {
+                    throw new InvalidOperationException("No active transation");
+                }
+                _transaction.Commit();
             }
-            _transaction.Commit();
         }
 
         public void Rollback()
         {
-            if (_transaction.IsActive)
+            if (_transaction != null)
             {
-                _transaction.Rollback();
+                if (_transaction.IsActive)
+                {
+                    _transaction.Rollback();
+                }
             }
         }
     }
