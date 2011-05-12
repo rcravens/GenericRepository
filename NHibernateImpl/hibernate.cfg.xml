@@ -4,7 +4,6 @@
     <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
     <property name="dialect">NHibernate.Dialect.MsSqlCeDialect</property>
     <property name="connection.driver_class">NHibernate.Driver.SqlServerCeDriver</property>
-    <property name="connection.connection_string">Data Source=C:\Code\DOTNET\GenericRepository\DataModel\Database\db.sdf</property>
     <property name='proxyfactory.factory_class'>NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>  
     <property name="show_sql">true</property>
 

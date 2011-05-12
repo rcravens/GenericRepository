@@ -1,15 +1,17 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.DataModel.Dtos;
 using Repository.Infrastructure;
 using Repository.NHibernateImpl;
+using System.Reflection;
 
 namespace NHibernateImplTests
 {
     [TestClass]
     public class DbSessionTests
     {
-        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory();
+        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -80,5 +82,6 @@ namespace NHibernateImplTests
 
             dbSession.Rollback();
         }*/
+
     }
 }
