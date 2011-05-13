@@ -1,6 +1,6 @@
 ﻿using System;
-using FakeImplTests.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.DataModel.Dtos;
 using Repository.FakeImpl;
 using Repository.Infrastructure;
 

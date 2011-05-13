@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FakeImplTests.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.FakeImpl;
 
@@ -10,20 +9,24 @@ namespace FakeImplTests
     [TestClass]
     public class FakeRepositoryTests
     {
-        private readonly List<Person> _persons = new List<Person>
-            { 
-                new Person { Id = 0, Name = "Bob Cravens" },
-                new Person { Id = 1, Name = "John Smith" },
-                new Person { Id = 2, Name = "Sarah Black" }
-            };
+        //private readonly List<Person> _persons = new List<Person>
+        //    { 
+        //        new Person { Id = 0, Name = "Bob Cravens" },
+        //        new Person { Id = 1, Name = "John Smith" },
+        //        new Person { Id = 2, Name = "Sarah Black" }
+        //    };
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_Exceptions_If_Table_Is_Null()
         {
-            new FakeRepository<int, Person>(null);
-        }
+            //new FakeRepository<int, Person>(null);
 
+            Maps maps = Maps.Deserialize();
+
+            int xxx = 0;
+        }
+/*
         [TestMethod]
         public void Create_Adds_Entities_To_The_Table()
         {
@@ -174,6 +177,6 @@ namespace FakeImplTests
             }
 
             return repo;
-        }
+        }*/
     }
 }

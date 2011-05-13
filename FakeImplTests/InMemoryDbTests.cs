@@ -1,6 +1,5 @@
-﻿using System;
-using FakeImplTests.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.DataModel.Dtos;
 using Repository.FakeImpl;
 
 namespace FakeImplTests
@@ -19,8 +18,8 @@ namespace FakeImplTests
             Assert.IsNotNull(people);
             Assert.IsTrue(db.TableCount() == 1);
 
-            InMemoryDbTable<Guid, SecretInfo> secrets = db.GetTable<Guid, SecretInfo>();
-            Assert.IsNotNull(secrets);
+            InMemoryDbTable<int, Address> addresses = db.GetTable<int, Address>();
+            Assert.IsNotNull(addresses);
             Assert.IsTrue(db.TableCount() == 2);
         }
 
@@ -36,11 +35,11 @@ namespace FakeImplTests
             Assert.IsTrue(people.Count() == 0);
             Assert.IsTrue(db.TableCount() == 1);
 
-            InMemoryDbTable<Guid, SecretInfo> secrets = db.GetTable<Guid, SecretInfo>();
-            Assert.IsNotNull(secrets);
+            InMemoryDbTable<int, Address> address = db.GetTable<int, Address>();
+            Assert.IsNotNull(address);
             Assert.IsTrue(db.TableCount() == 2);
 
-            Person person = new Person {Id = 100, Name = "My Name"};
+            Person person = new Person {FirstName = "first name", LastName = "last name"};
             people.Add(person);
             Assert.IsTrue(people.Count() == 1);
 
