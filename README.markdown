@@ -13,10 +13,11 @@ to the persistence layer. This 'normalization' has costs and benefits.
 + Allows the persistence layer to be faked for testing
 
 The following implementatons exist (others are on their way):
-> If you want to supply an implementation for an ORM please let me know.
 
 + In Memory (this is useful for automated testing)
 + NHibernate
+
+*If you want to supply an implementation for an ORM please let me know.*
 
 
 Example Usage
