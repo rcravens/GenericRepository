@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Maps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <MapInfo>
-    <MapClass type="Repository.DataModel.Dtos.Person" id="Id" />
-    <MapClass type="Repository.DataModel.Dtos.Address" id="Id" />
-  </MapInfo>
-</Maps>

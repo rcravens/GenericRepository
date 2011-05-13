@@ -12,14 +12,14 @@ namespace FakeImplTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_Exception_If_Db_Is_Null()
         {
-            new FakeDbSessionFactory(null);
+            new DbSessionFactory(null);
         }
 
         [TestMethod]
         public void Create_Returns_Db_Session()
         {
             InMemoryDb db = new InMemoryDb();
-            FakeDbSessionFactory dbSessionFactory = new FakeDbSessionFactory(db);
+            DbSessionFactory dbSessionFactory = new DbSessionFactory(db);
 
             IDbSession dbSession = dbSessionFactory.Create();
             Assert.IsNotNull(dbSession);

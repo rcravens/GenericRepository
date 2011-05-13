@@ -3,11 +3,11 @@ using Repository.Infrastructure;
 
 namespace Repository.FakeImpl
 {
-    public class FakeDbSessionFactory : IDbSessionFactory
+    public class DbSessionFactory : IDbSessionFactory
     {
         private readonly InMemoryDb _db;
 
-        public FakeDbSessionFactory(InMemoryDb db)
+        public DbSessionFactory(InMemoryDb db)
         {
             if(db==null)
             {
@@ -18,7 +18,7 @@ namespace Repository.FakeImpl
 
         public IDbSession Create()
         {
-            return new FakeDbSession(_db);
+            return new DbSession(_db);
         }
     }
 }

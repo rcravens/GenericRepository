@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.DataModel.Dtos;
 using Repository.FakeImpl;
 
 namespace FakeImplTests
 {
     [TestClass]
     public class InMemoryDbTableTests
-    {/*
+    {
+        /*
         private readonly List<Person> _persons = new List<Person>
             { 
-                new Person { Id = 0, Name = "Bob Cravens" },
+                new Person { Id = 0, FirstName = "Bob", LastName = "Cravens" },
                 new Person { Id = 1, Name = "John Smith" },
                 new Person { Id = 2, Name = "Sarah Black" }
             };

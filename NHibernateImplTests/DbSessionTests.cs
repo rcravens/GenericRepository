@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.DataModel.Dtos;
 using Repository.Infrastructure;
 using Repository.NHibernateImpl;
-using System.Reflection;
 
 namespace NHibernateImplTests
 {
@@ -60,28 +58,6 @@ namespace NHibernateImplTests
             }
 
         }
-/*
-        [TestMethod]
-        public void Dispose_Is_Implemented()
-        {
-            IDbSession dbSession = _dbSessionFactory.Create();
-            dbSession.Dispose();
-        }
-
-        [TestMethod]
-        public void Commit_Is_Implemented()
-        {
-            IDbSession dbSession = _dbSessionFactory.Create();
-            dbSession.Commit();
-        }
-
-        [TestMethod]
-        public void Rollback_Throws_Exception()
-        {
-            IDbSession dbSession = _dbSessionFactory.Create();
-
-            dbSession.Rollback();
-        }*/
 
     }
 }
