@@ -1,14 +1,26 @@
 Generic Repository is a generic repository framework using .NET 
 =================================================================================================
 
-The intention is to provide a *generic repository implementation* for many of the common ORMs. More details will follow. The following
-implementatons exist (others are on their way):
+The intention is to provide a *generic repository implementation* for many of the common ORMs. This provides a 'normalized' interface
+to the persistence layer. This 'normalization' has costs and benefits.
+
+#### Costs
++ Hides useful features of the ORM
++ Adds complexity to the design
+
+#### Benefits
++ Abstracts away the ORM / persistence implementation
++ Allows the persistence layer to be faked for testing
+
+The following implementatons exist (others are on their way):
+> If you want to supply an implementation for an ORM please let me know.
 
 + In Memory (this is useful for automated testing)
 + NHibernate
 
+
 Example Usage
--------------
+-----------------------
 
     // Create an instance of the session factory. This is typically done
 	//	once and cached. DbSessionFactory is a concrete implementation
@@ -38,6 +50,6 @@ Example Usage
 	}
 
 
-If you want so supply an implementation for an ORM please let me know.
+More details will follow. 
 
 Bob
