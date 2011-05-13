@@ -13,7 +13,7 @@ namespace NHibernateImplTests
     {
         private readonly List<Person> _persons = new List<Person>();
 
-        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory();
+        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
 
         [TestInitialize]
         public void Init()
