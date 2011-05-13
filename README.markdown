@@ -1,4 +1,4 @@
-Generic Repository is a generic repository framework using .NET 
+Generic Repository is a generic repository implementation using .NET 
 =================================================================================================
 
 The intention is to provide a *generic repository implementation* for many of the common ORMs. This provides a 'normalized' interface
