@@ -32,5 +32,15 @@ namespace Repository.DataModel.Properties {
                 return ((string)(this["dbConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\Database\\db2.sdf")]
+        public string db2ConnectionString {
+            get {
+                return ((string)(this["db2ConnectionString"]));
+            }
+        }
     }
 }

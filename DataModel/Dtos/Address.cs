@@ -1,10 +1,11 @@
-﻿using Repository.Infrastructure;
+﻿using System;
+using Repository.Infrastructure;
 
 namespace Repository.DataModel.Dtos
 {
     public class Address : IKeyed<int>
     {
-        public virtual int Id { get; private set; }
+        public virtual Int32 Id { get; private set; }
         public virtual int PersonId { get; set; }
         public virtual string Street { get; set; }
         public virtual string City { get; set; }

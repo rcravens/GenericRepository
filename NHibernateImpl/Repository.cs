@@ -6,7 +6,7 @@ using Repository.Infrastructure;
 
 namespace Repository.NHibernateImpl
 {
-    public class Repository<TKey, TEntity> : NHibernateContext, IKeyedRepository<TKey, TEntity>
+    public class Repository<TKey, TEntity> : IKeyedRepository<TKey, TEntity>
             where TEntity : class, IKeyed<TKey>
     {
         private readonly ISession _session;
