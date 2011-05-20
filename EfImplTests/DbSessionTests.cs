@@ -6,7 +6,7 @@ using Repository.Infrastructure;
 namespace EfImplTests
 {
     [TestClass]
-    public class FakeDbSessionTests
+    public class DbSessionTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -34,11 +34,11 @@ namespace EfImplTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotImplementedException))]
         public void Rollback_Throws_Exception()
         {
             DbSession dbSession = GetSession();
 
+            throw new NotImplementedException("Testing rollback needs to be done after repo is working");
             dbSession.Rollback();
         }
 
@@ -76,7 +76,7 @@ namespace EfImplTests
 
         private static DbSession GetSession()
         {
-            db2Entities context = new db2Entities();
+            db2Entities context = new db2Entities(Helpers.ConnectionString);
             return new DbSession(context);
         }
     }

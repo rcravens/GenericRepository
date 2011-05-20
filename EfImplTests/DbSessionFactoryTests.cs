@@ -10,7 +10,7 @@ namespace EfImplTests
         [TestMethod]
         public void Create_Returns_Db_Session()
         {
-            DbSessionFactory dbSessionFactory = new DbSessionFactory();
+            DbSessionFactory dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
 
             IDbSession dbSession = dbSessionFactory.Create();
             Assert.IsNotNull(dbSession);
