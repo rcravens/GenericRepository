@@ -16,30 +16,55 @@ namespace EfImplTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void CreateReadOnlyRepository_Throws_Exception()
+        public void Commit_And_Rollback_Work()
         {
-            DbSession dbSession = GetSession();
+            Person person = new Person
+                                {
+                                    Id = Guid.NewGuid(),
+                                    FirstName = Guid.NewGuid().ToString(),
+                                    LastName = Guid.NewGuid().ToString()
+                                };
 
-            dbSession.CreateReadOnlyRepository<Person>();
-        }
+            // Rollback
+            using (DbSession dbSession = GetSession())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
-        [TestMethod]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void CreateRepository_Throws_Exception()
-        {
-            DbSession dbSession = GetSession();
+                repo.Add(person);
 
-            dbSession.CreateRepository<Person>();
-        }
+                dbSession.Rollback();
+            }
+            using (DbSession dbSession = GetSession())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
-        [TestMethod]
-        public void Rollback_Throws_Exception()
-        {
-            DbSession dbSession = GetSession();
+                Assert.IsNull(repo.FindBy(person.Id));
+            }
+            // Commit
+            using (DbSession dbSession = GetSession())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
-            throw new NotImplementedException("Testing rollback needs to be done after repo is working");
-            dbSession.Rollback();
+                repo.Add(person);
+
+                dbSession.Commit();
+            }
+            using (DbSession dbSession = GetSession())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+
+                Assert.IsNotNull(repo.FindBy(person.Id));
+            }
+
+            // Cleanup
+            using (DbSession dbSession = GetSession())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+
+                repo.Delete(person);
+
+                dbSession.Commit();
+            }
         }
 
         [TestMethod]
@@ -47,7 +72,7 @@ namespace EfImplTests
         {
             DbSession dbSession = GetSession();
 
-            IKeyedRepository<Guid, Person> repository = dbSession.CreateKeyedRepository<Guid, Person>();
+            IGuidKeyedRepository<Person> repository = dbSession.CreateKeyedRepository<Person>();
             Assert.IsNotNull(repository);
         }
 
@@ -56,7 +81,7 @@ namespace EfImplTests
         {
             DbSession dbSession = GetSession();
 
-            IKeyedReadOnlyRepository<Guid, Person> repository = dbSession.CreateKeyedReadOnlyRepository<Guid, Person>();
+            IGuidKeyedReadOnlyRepository<Person> repository = dbSession.CreateKeyedReadOnlyRepository<Person>();
             Assert.IsNotNull(repository);
         }
 

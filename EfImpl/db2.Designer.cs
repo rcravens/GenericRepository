@@ -131,7 +131,7 @@ namespace EfImpl
     [EdmEntityTypeAttribute(NamespaceName="db2Model", Name="Address")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Address : EntityObject, IKeyed<Guid>
+    public partial class Address : EntityObject
     {
         #region Factory Method
     
@@ -330,7 +330,7 @@ namespace EfImpl
     [EdmEntityTypeAttribute(NamespaceName="db2Model", Name="Person")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Person : EntityObject, IKeyed<Guid>
+    public partial class Person : EntityObject
     {
         #region Factory Method
     

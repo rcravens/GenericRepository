@@ -31,7 +31,7 @@ namespace EfImplTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_Exceptions_If_Session_Is_Null()
         {
-            new Repository<Guid, Person>(null);
+            new Repository<Person>(null);
         }
 
         [TestMethod]
@@ -39,9 +39,9 @@ namespace EfImplTests
         {
             int currentCount;
             const int numToAdd = 3;
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 // create
                 currentCount = repo.All().Count();
@@ -52,9 +52,9 @@ namespace EfImplTests
 
                 dbSession.Commit();
             }
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
                 int newCount = repo.All().Count();
 
                 Assert.IsTrue(currentCount + numToAdd == newCount);
@@ -73,9 +73,9 @@ namespace EfImplTests
                 localList.Add(CreatePerson());
             }
 
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 // create
                 startCount = repo.All().Count();
@@ -84,9 +84,9 @@ namespace EfImplTests
                 dbSession.Commit();
             }
 
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
                 int finalCount = repo.All().Count();
 
                 Assert.IsTrue(finalCount == startCount + numToAdd);
@@ -96,15 +96,15 @@ namespace EfImplTests
         [TestMethod]
         public void Read_Finds_Exising()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 foreach (Person person in _persons)
                 {
                     Person copy = repo.FindBy(person.Id);
                     Assert.IsNotNull(copy);
-                    Assert.AreEqual(copy, person);
+                    Assert.IsTrue(copy .Equals(person));
                 }
 
                 dbSession.Commit();
@@ -114,9 +114,9 @@ namespace EfImplTests
         [TestMethod]
         public void Read_Returns_Null_If_Id_Does_Not_Exist()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 Person shouldBeNull = repo.FindBy(Guid.NewGuid());
                 Assert.IsNull(shouldBeNull);
@@ -128,9 +128,9 @@ namespace EfImplTests
         [TestMethod]
         public void Update_Returns_True_And_Modifies_Exising()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 int countBefore = repo.All().Count();
                 Person person1Updated = repo.FindBy(_persons[0].Id);
@@ -146,9 +146,9 @@ namespace EfImplTests
         [TestMethod]
         public void Update_Returns_False_If_Does_Not_Exist_And_Does_Not_Modify_List()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 int countBefore = repo.All().Count();
                 Person doesNotExist = new Person { FirstName = "Julio", LastName = "Gonzalas" };
@@ -162,9 +162,9 @@ namespace EfImplTests
         [TestMethod]
         public void All_Returns_Expected()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 List<Person> all = repo.All().ToList();
                 Assert.IsTrue(all.Count >= _persons.Count);
@@ -180,9 +180,9 @@ namespace EfImplTests
         [TestMethod]
         public void Delete_Returns_False_If_Does_Not_Exist_And_Does_Not_Modify_List()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 int countBefore = repo.All().Count();
                 Person doesNotExist = new Person { FirstName = "I do not exist", LastName = "I do not exist" };
@@ -194,29 +194,43 @@ namespace EfImplTests
         [TestMethod]
         public void Delete_Returns_True_And_Removes_Entity_If_Found()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            int expectedCount;
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
-                int expectedCount = repo.All().Count();
+                expectedCount = repo.All().Count() - _persons.Count;
                 foreach (Person person in _persons)
                 {
-                    Assert.IsTrue(repo.All().Count() == expectedCount--);
                     Assert.IsTrue(repo.Delete(person));
-                    Assert.IsTrue(repo.All().Count() == expectedCount);
                 }
+
+                dbSession.Commit();
+            }
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+                Assert.IsTrue(repo.All().Count() == expectedCount);
             }
         }
 
         [TestMethod]
         public void Delete_Returns_True_And_Removes_A_List_Of_Entities_If_Found()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            int expected;
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
-                int expected = repo.All().Count() - _persons.Count;
+                expected = repo.All().Count() - _persons.Count;
                 Assert.IsTrue(repo.Delete(_persons));
+
+                dbSession.Commit();
+            }
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
+            {
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+
                 Assert.IsTrue(repo.All().Count() == expected);
             }
         }
@@ -237,13 +251,13 @@ namespace EfImplTests
 
         private void AddTestData()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 for (int i = 0; i < 5; i++)
                 {
-                    Assert.IsTrue(repo.Add(CreatePerson()));
+                    repo.Add(CreatePerson());
                 }
 
                 dbSession.Commit();
@@ -252,14 +266,14 @@ namespace EfImplTests
 
         private void CleanUp()
         {
-            using (IDbSession dbSession = _dbSessionFactory.Create())
+            using (IDbSessionGuidKeyed dbSession = _dbSessionFactory.Create())
             {
-                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
 
                 // delete what we created
                 foreach (Person person in _persons)
                 {
-                    Assert.IsTrue(repo.Delete(person));
+                    repo.Delete(person);
                 }
 
                 dbSession.Commit();

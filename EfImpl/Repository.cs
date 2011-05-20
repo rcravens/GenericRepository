@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using Repository.Infrastructure;
 using System.Data.Objects;
 
 namespace EfImpl
 {
-    public class Repository<TKey, TEntity> : IKeyedRepository<TKey, TEntity>
-            where TEntity : class, IKeyed<TKey>
+    public class Repository<TEntity> : IGuidKeyedRepository<TEntity>
+            where TEntity : class, IGuidKeyed
     {
         private readonly IObjectSet<TEntity> _objectSet;
 
@@ -24,7 +25,7 @@ namespace EfImpl
             return _objectSet;
         }
 
-        public TEntity FindBy(TKey id)
+        public TEntity FindBy(Guid id)
         {
             return _objectSet.FirstOrDefault(x => x.Id.Equals(id));
         }
@@ -37,14 +38,26 @@ namespace EfImpl
 
         public bool Update(TEntity entity)
         {
-            _objectSet.Attach(entity);
+            EntityObject obj = entity as EntityObject;
+            if(obj == null || obj.EntityState == System.Data.EntityState.Detached)
+            {
+                if(FindBy(entity.Id)==null)
+                {
+                    return false;
+                }
+                _objectSet.Attach(entity);
+            }
             return true;
         }
 
         public bool Delete(TEntity entity)
         {
-            _objectSet.Attach(entity);
-            _objectSet.DeleteObject(entity);
+            TEntity toDelete = FindBy(entity.Id);
+            if(toDelete == null)
+            {
+                return false;
+            }
+            _objectSet.DeleteObject(toDelete);
             return true;
         }
 

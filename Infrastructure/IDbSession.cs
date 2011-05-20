@@ -11,4 +11,18 @@ namespace Repository.Infrastructure
         void Commit();
         void Rollback();
     }
+    public interface IDbSessionGuidKeyed : IDisposable
+    {
+        IGuidKeyedRepository<TEntity> CreateKeyedRepository<TEntity>() where TEntity : class, IGuidKeyed;
+        IGuidKeyedReadOnlyRepository<TEntity> CreateKeyedReadOnlyRepository<TEntity>() where TEntity : class, IGuidKeyed;
+        void Commit();
+        void Rollback();
+    }
+    public interface IDbSessionIntKeyed : IDisposable
+    {
+        IIntKeyedRepository<TEntity> CreateKeyedRepository<TEntity>() where TEntity : class, IIntKeyed;
+        IIntKeyedReadOnlyRepository<TEntity> CreateKeyedReadOnlyRepository<TEntity>() where TEntity : class, IIntKeyed;
+        void Commit();
+        void Rollback();
+    }
 }

@@ -12,7 +12,7 @@ namespace EfImplTests
         {
             DbSessionFactory dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
 
-            IDbSession dbSession = dbSessionFactory.Create();
+            IDbSessionGuidKeyed dbSession = dbSessionFactory.Create();
             Assert.IsNotNull(dbSession);
         }
     }
