@@ -16,6 +16,7 @@ The following implementatons exist (others are on their way):
 
 + In Memory (this is useful for automated testing)
 + NHibernate
++ Entity Framework
 
 *If you want to supply an implementation for an ORM please let me know.*
 
