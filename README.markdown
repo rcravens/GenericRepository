@@ -52,6 +52,18 @@ Example Usage
 	}
 
 
-More details will follow. 
+Getting Started
+----------------------
+To get started do the following:
+
+1. Pull down the code from Github. At some point I will put togther Nuget packages to make this step easier.
+2. Read the code in the <code>Infrastructure</code> project. These interfaces are the abstraction that you will use in your code. Recommended order: IDbSessionFactory, IDbSession, IRepository, IReadOnlyRepository, IKeyed, IKeyedRepository, IKeyedReadOnlyRepository
+3. Choose one of the existing example implementations and read that code. If you are familiar with that ORM, then this will be a farily straight-forward process of understanding how it maps into the generic interfaces.
+4. Adapt one of the existing implementation for your specific needs.
+
+Feedback
+--------------
+If you have improvements, questions or suggestions please feel free to contact me.
+
 
 Bob
