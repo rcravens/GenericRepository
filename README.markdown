@@ -65,7 +65,7 @@ To get started do the following:
 	+ <code>IKeyed</code>
 	+ <code>IKeyedRepository</code>
 	+ <code>IKeyedReadOnlyRepository</code>
-3. Choose one of the existing example implementations and read that code. If you are familiar with that ORM, then this will be a farily straight-forward process of understanding how it maps into the generic interfaces.
+3. Choose one of the existing sample implementations and read that code. If you are familiar with that ORM, then this will be a farily straight-forward process of understanding how it maps into the generic interfaces.
 4. Adapt one of the existing implementation for your specific needs.
 
 Feedback
