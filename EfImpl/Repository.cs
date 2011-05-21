@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Objects.DataClasses;
 using System.Linq;
 using Repository.Infrastructure;
@@ -7,27 +8,44 @@ using System.Data.Objects;
 
 namespace EfImpl
 {
-    public class Repository<TEntity> : IGuidKeyedRepository<TEntity>
-            where TEntity : class, IGuidKeyed
+    public class Repository<TKey, TEntity> : IKeyedRepository<TKey, TEntity>
+            where TEntity : class, IKeyed<TKey>
     {
-        private readonly IObjectSet<TEntity> _objectSet;
 
-        public Repository(IObjectSet<TEntity> objectSet)
+        private readonly ObjectContext _context;
+        private readonly ObjectSet<TEntity> _objectSet;
+        private readonly string _entitySetName;
+        private const string _keyName = "Id"; // IKeyed<>
+
+        public Repository(ObjectContext context)
         {
-            if(objectSet == null)
+            if (context == null)
             {
-                throw new ArgumentNullException("objectSet");
+                throw new ArgumentNullException("context");
             }
-            _objectSet = objectSet;
+            _context = context;
+
+            _objectSet = _context.CreateObjectSet<TEntity>();
+
+            _entitySetName = _context.DefaultContainerName + "." + _objectSet.EntitySet.Name;
         }
         public IQueryable<TEntity> All()
         {
             return _objectSet;
         }
 
-        public TEntity FindBy(Guid id)
+        public TEntity FindBy(TKey id)
         {
-            return _objectSet.FirstOrDefault(x => x.Id.Equals(id));
+            EntityKey key = new EntityKey(_entitySetName, _keyName, id);
+            try
+            {
+                return (TEntity)_context.GetObjectByKey(key);
+            }
+            catch (ObjectNotFoundException)
+            {
+                // Object not found...return null
+                return null;
+            }
         }
 
         public bool Add(TEntity entity)
@@ -39,7 +57,7 @@ namespace EfImpl
         public bool Update(TEntity entity)
         {
             EntityObject obj = entity as EntityObject;
-            if(obj == null || obj.EntityState == System.Data.EntityState.Detached)
+            if(obj == null || obj.EntityState == EntityState.Detached)
             {
                 if(FindBy(entity.Id)==null)
                 {

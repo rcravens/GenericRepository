@@ -1,8 +1,9 @@
-﻿using Repository.Infrastructure;
+﻿using System;
+using Repository.Infrastructure;
 
 namespace EfImpl
 {
-    public partial class Person: IGuidKeyed
+    public partial class Person: IKeyed<Guid>
     {
         public override bool Equals(object obj)
         {

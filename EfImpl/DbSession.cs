@@ -4,7 +4,7 @@ using Repository.Infrastructure;
 
 namespace EfImpl
 {
-    public class DbSession : IDbSessionGuidKeyed
+    public class DbSession : IDbSession
     {
         private readonly ObjectContext _context;
 
@@ -26,16 +26,26 @@ namespace EfImpl
             GC.SuppressFinalize(this);
         }
 
-        public IGuidKeyedRepository<TEntity> CreateKeyedRepository<TEntity>() where TEntity : class, IGuidKeyed
+        public IKeyedRepository<TKey, TEntity> CreateKeyedRepository<TKey, TEntity>()
+            where TEntity : class, IKeyed<TKey>
         {
-            IObjectSet<TEntity> objectSet = _context.CreateObjectSet<TEntity>();
-            return new Repository<TEntity>(objectSet);
+            return new Repository<TKey, TEntity>(_context);
         }
 
-        public IGuidKeyedReadOnlyRepository<TEntity> CreateKeyedReadOnlyRepository<TEntity>() where TEntity : class, IGuidKeyed
+        public IKeyedReadOnlyRepository<TKey, TEntity> CreateKeyedReadOnlyRepository<TKey, TEntity>() 
+            where TEntity : class, IKeyed<TKey>
         {
-            IObjectSet<TEntity> objectSet = _context.CreateObjectSet<TEntity>();
-            return new Repository<TEntity>(objectSet);
+            return new Repository<TKey, TEntity>(_context);
+        }
+
+        public IReadOnlyRepository<TEntity> CreateReadOnlyRepository<TEntity>() where TEntity : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class
+        {
+            throw new NotImplementedException();
         }
 
         public void Commit()

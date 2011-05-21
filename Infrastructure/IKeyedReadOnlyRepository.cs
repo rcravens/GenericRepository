@@ -7,16 +7,4 @@ namespace Repository.Infrastructure
 	{
 		TEntity FindBy(TKey id);
 	}
-
-    public interface IGuidKeyedReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
-        where TEntity : class, IGuidKeyed
-    {
-        TEntity FindBy(Guid id);
-    }
-
-    public interface IIntKeyedReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
-        where TEntity : class, IIntKeyed
-    {
-        TEntity FindBy(int id);
-    }
 }

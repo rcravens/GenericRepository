@@ -28,7 +28,7 @@ namespace EfImplTests
             // Rollback
             using (DbSession dbSession = GetSession())
             {
-                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
 
                 repo.Add(person);
 
@@ -36,14 +36,14 @@ namespace EfImplTests
             }
             using (DbSession dbSession = GetSession())
             {
-                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
 
                 Assert.IsNull(repo.FindBy(person.Id));
             }
             // Commit
             using (DbSession dbSession = GetSession())
             {
-                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
 
                 repo.Add(person);
 
@@ -51,7 +51,7 @@ namespace EfImplTests
             }
             using (DbSession dbSession = GetSession())
             {
-                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
 
                 Assert.IsNotNull(repo.FindBy(person.Id));
             }
@@ -59,7 +59,7 @@ namespace EfImplTests
             // Cleanup
             using (DbSession dbSession = GetSession())
             {
-                IGuidKeyedRepository<Person> repo = dbSession.CreateKeyedRepository<Person>();
+                IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
 
                 repo.Delete(person);
 
@@ -72,8 +72,8 @@ namespace EfImplTests
         {
             DbSession dbSession = GetSession();
 
-            IGuidKeyedRepository<Person> repository = dbSession.CreateKeyedRepository<Person>();
-            Assert.IsNotNull(repository);
+            IKeyedRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+            Assert.IsNotNull(repo);
         }
 
         [TestMethod]
@@ -81,8 +81,8 @@ namespace EfImplTests
         {
             DbSession dbSession = GetSession();
 
-            IGuidKeyedReadOnlyRepository<Person> repository = dbSession.CreateKeyedReadOnlyRepository<Person>();
-            Assert.IsNotNull(repository);
+            IKeyedReadOnlyRepository<Guid, Person> repo = dbSession.CreateKeyedRepository<Guid, Person>();
+            Assert.IsNotNull(repo);
         }
 
         [TestMethod]
