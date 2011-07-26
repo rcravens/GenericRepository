@@ -27,5 +27,18 @@ namespace NHibernateImplTests
                 return _connectionString;
             }
         }
+
+        private static Assembly _resourceAssembly;
+        public static Assembly ResourceAssembly
+        {
+            get
+            {
+                if(_resourceAssembly==null)
+                {
+                    _resourceAssembly = Assembly.GetExecutingAssembly();
+                }
+                return _resourceAssembly;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace NHibernateImplTests
     [TestClass]
     public class DbSessionTests
     {
-        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
+        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString, Helpers.ResourceAssembly);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

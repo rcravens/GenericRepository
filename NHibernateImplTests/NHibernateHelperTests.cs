@@ -7,13 +7,18 @@ namespace NHibernateImplTests
     [TestClass]
     public class NHibernateHelperTests
     {
-        private readonly DbSessionFactory _dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
-
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_Excpection_If_Connection_String_Is_Null()
         {
-            new NHibernateHelper(null);
+            new NHibernateHelper(null, Helpers.ResourceAssembly);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Ctor_Throws_Excpection_If_Resource_Assembly_Is_Null()
+        {
+            new NHibernateHelper("connection string", null);
         }
     }
 }

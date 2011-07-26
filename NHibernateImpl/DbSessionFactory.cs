@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Repository.Infrastructure;
 
 namespace Repository.NHibernateImpl
@@ -7,13 +8,13 @@ namespace Repository.NHibernateImpl
     {
         private readonly NHibernateHelper _nHibernateHelper;
 
-        public DbSessionFactory(string connectionString)
+        public DbSessionFactory(string connectionString, Assembly resourceAssembly)
         {
             if(connectionString == null)
             {
                 throw new ArgumentNullException("connectionString");
             }
-            _nHibernateHelper = new NHibernateHelper(connectionString);
+            _nHibernateHelper = new NHibernateHelper(connectionString, resourceAssembly);
         }
 
         public IDbSession Create()

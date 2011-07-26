@@ -12,16 +12,18 @@ namespace NHibernateImplTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_Throws_If_Connection_String_Param_Is_Null()
         {
-            new DbSessionFactory(null);
+            new DbSessionFactory(null, Helpers.ResourceAssembly);
         }
 
         [TestMethod]
         public void Create_Returns_Db_Session()
         {
-            DbSessionFactory dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString);
+            DbSessionFactory dbSessionFactory = new DbSessionFactory(Helpers.ConnectionString, Helpers.ResourceAssembly);
 
-            IDbSession dbSession = dbSessionFactory.Create();
-            Assert.IsNotNull(dbSession);
+            using(IDbSession dbSession = dbSessionFactory.Create())
+            {
+                Assert.IsNotNull(dbSession);                
+            }
         }
     }
 }
