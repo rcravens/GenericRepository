@@ -29,7 +29,14 @@ Example Usage
 	//	of IDbSessionFactory using a variety of ORMs (e.g. NHibernate,
 	//	EF...etc).
 	//
-    IDbSessionFactory dbSessionFactory = new DbSessionFactory(connectionString)
+	// Assembly that contains the NHibernate mapping files. This assembly can contain
+	//	just mapping files. In that case add a class called 'Handle' to do reflection.
+	//
+	Assembly resources = Assembly.GetAssembly(typeof(NHibernate.Maps.Handle));
+	
+	// Create the session factory.
+	//
+    IDbSessionFactory dbSessionFactory = new DbSessionFactory(connectionString, resources);
     
 	// When necessary...
 	//
@@ -70,7 +77,7 @@ To get started do the following:
 
 Feedback
 --------------
-If you have improvements, questions or suggestions please feel free to contact me..
+If you have improvements, questions or suggestions please feel free to contact me.
 
 
 Bob
