@@ -70,7 +70,7 @@ To get started do the following:
 
 Feedback
 --------------
-If you have improvements, questions or suggestions please feel free to contact me.
+If you have improvements, questions or suggestions please feel free to contact me..
 
 
 Bob
