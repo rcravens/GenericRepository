@@ -4,5 +4,8 @@ database and the ORM. This encapsulation allows the database to be faked for
 testing purposes. This solution contains a fake db implementation in a separate
 project. To complete this NHibernate implementation:
 
-1. Create a configuration file for NHibernate.
-2. Add mapping files to the 'Maps' folder.
+Simply create a configuration file for NHibernate and add it to your project.
+
+The constructor of the IDbSessionFactory implementation takes an Assembly
+that contains the NHibernate mapping resources. Look at the tests for an
+example.

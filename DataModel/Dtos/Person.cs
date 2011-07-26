@@ -4,7 +4,7 @@ namespace Repository.DataModel.Dtos
 {
     public class Person : IKeyed<int>
     {
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
 

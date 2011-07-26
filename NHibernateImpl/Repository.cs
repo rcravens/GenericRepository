@@ -67,7 +67,7 @@ namespace Repository.NHibernateImpl
 
         public IQueryable<TEntity> All()
         {
-            return _session.Linq<TEntity>();
+            return _session.Query<TEntity>();
         }
 
         public TEntity FindBy(TKey id)

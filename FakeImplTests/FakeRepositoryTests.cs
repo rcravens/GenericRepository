@@ -313,6 +313,7 @@ namespace FakeImplTests
             {
                 Person person = new Person
                 {
+                    Id = i,
                     FirstName = Guid.NewGuid().ToString(),
                     LastName = Guid.NewGuid().ToString()
                 };

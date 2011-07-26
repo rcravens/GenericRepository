@@ -5,7 +5,7 @@ namespace Repository.DataModel.Dtos
 {
     public class Address : IKeyed<int>
     {
-        public virtual Int32 Id { get; private set; }
+        public virtual Int32 Id { get; set; }
         public virtual int PersonId { get; set; }
         public virtual string Street { get; set; }
         public virtual string City { get; set; }
